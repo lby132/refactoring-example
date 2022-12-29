@@ -6,7 +6,9 @@ import java.util.Arrays;
 public class ContainerService {
 
     public static <T> T getObject(Class<T> classType) {
+
         final T instance = createInstance(classType);
+
         Arrays.stream(classType.getDeclaredFields()).forEach(f -> {
             if (f.getAnnotation(Inject.class) != null) {
                 final Object fieldInstance = createInstance(f.getType());
@@ -18,6 +20,7 @@ public class ContainerService {
                 }
             }
         });
+
         return instance;
     }
 
